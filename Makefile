@@ -7,16 +7,19 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ) Makefile
-	make all -C libft
-	$(CC) $(CFLAGS) $(SRC) libft/libft.a -o $(NAME)
+	@make all -C libft
+	@$(CC) $(CFLAGS) $(SRC) libft/libft.a -o $(NAME)
+	@echo make done
 
 clean:
-	make clean -C libft
-	rm -f $(OBJ)
+	@make clean -C libft
+	@rm -f $(OBJ)
+	@echo clean done
 
 fclean: clean
-	make fclean -C libft
-	rm -f $(NAME)
+	@make fclean -C libft
+	@rm -f $(NAME)
+	@echo fclean done
 
 #bonus: pondrias make bonus -C libft...
 
