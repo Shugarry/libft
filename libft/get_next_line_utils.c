@@ -6,7 +6,7 @@
 /*   By: frey-gal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:24:06 by frey-gal          #+#    #+#             */
-/*   Updated: 2024/12/13 18:44:31 by frey-gal         ###   ########.fr       */
+/*   Updated: 2025/01/03 21:44:15 by frey-gal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*join_free(char *s1, char *s2)
 	len = length(s1, '\0') + length(s2, '\0');
 	tmp = (char *)malloc((len + 1) * sizeof(char));
 	if (tmp == NULL)
-		return (NULL);
+		return (free_buddy(&ptr_s1, NULL));
 	if (s1)
 		while (*s1)
 			tmp[i++] = *s1++;
@@ -58,7 +58,7 @@ char	*join_free(char *s1, char *s2)
 			tmp[i++] = *s2++;
 	tmp[i] = '\0';
 	if (ptr_s1)
-		free(ptr_s1);
+		free_buddy(&ptr_s1, NULL);
 	return (tmp);
 }
 

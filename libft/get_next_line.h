@@ -6,7 +6,7 @@
 /*   By: frey-gal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:16:01 by frey-gal          #+#    #+#             */
-/*   Updated: 2024/12/13 18:42:39 by frey-gal         ###   ########.fr       */
+/*   Updated: 2025/01/03 19:15:04 by frey-gal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 # include <limits.h>
 
 char	*cut(char *mem, int x);
-char	*free_all(char *s1, char *s2);
+char	*free_buddy(char **str, char **str2);
+char	*butter(char *stash, char *buf);
 char	*get_next_line(int fd);
 size_t	length(char *str, char c);
 char	*join_free(char *s1, char *s2);
 int		find_nl(const char *s);
 char	*duplen(const char *s, size_t len);
-void	setzero(void *s, size_t n);
 
 #endif

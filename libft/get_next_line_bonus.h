@@ -6,7 +6,7 @@
 /*   By: frey-gal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 17:16:01 by frey-gal          #+#    #+#             */
-/*   Updated: 2024/12/13 18:46:05 by frey-gal         ###   ########.fr       */
+/*   Updated: 2025/01/03 19:19:50 by frey-gal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@
 # include <stdio.h>
 # include <stddef.h>
 # include <limits.h>
+# include <stdint.h>
 
 char	*cut(char *mem, int x);
-char	*free_all(char *s1, char *s2);
+void	*ft_calloc(size_t nmemb, size_t size);
+char	*free_buddy(char **str, char **str2);
 char	*get_next_line(int fd);
+char	*butter(char *stash, char *buf);
 size_t	length(char *str, char c);
 char	*join_free(char *s1, char *s2);
 int		find_nl(const char *s);
 char	*duplen(const char *s, size_t len);
-void	setzero(void *s, size_t n);
 
 #endif
