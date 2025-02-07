@@ -14,10 +14,15 @@ get_next_line_utils_bonus.c get_next_line_utils.c
 
 OBJ = $(SRC:.c=.o)
 
+COMPILE = cc -Wall -Wextra -Werror -c
+
+LIB = ar rc $(NAME)
+
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HEADERS) Makefile 	
-	@ar rcs $(NAME) $(OBJ)
+	@$(COMPILE) $(SRC)
+	@$(LIB) $(OBJ)
 
 clean:
 	@rm -f $(OBJ)
