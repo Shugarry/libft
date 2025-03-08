@@ -62,10 +62,17 @@ libft/ft_lstmap_bonus.c \
 libft/get_next_line_bonus.c \
 libft/get_next_line_utils_bonus.c \
 libft/get_next_line_utils.c \
+libft/libft.h \
+libft/get_next_line.h \
+libft/get_next_line_bonus.h \
+libft/ft_printf.h \
 
 OBJ_DEP = $(LIB_DEP:.c=.o)
 
-ALL_DEP = Makefile placeholder.h $(OBJ) $(LIB_DEP) $(OBJ_DEP) libft/Makefile
+DIR_DEP = -I. -Ilibft
+
+ALL_DEP = Makefile placeholder.h $(OBJ) $(LIB_DEP) $(OBJ_DEP) libft/Makefile \
+		  DIR_DEP
 
 #=======================TO MAKE SURE MAKEFILE RECOMPILES=======================#
 
