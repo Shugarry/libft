@@ -1,14 +1,45 @@
-COMPILE = cc -Wall -Wextra -Werror# -g
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: frey-gal <frey-gal@student.42barcelona.co  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/04/20 02:23:03 by frey-gal          #+#    #+#              #
+#    Updated: 2025/04/20 02:27:49 by frey-gal         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-NAME = placeholder
+# ================================== VARS ==================================== #
 
-SRC = srcs/main.c #srcs
+NAME		= placeholder
+CC			= cc
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address #-g
 
-OBJ = $(SRC:.c=.o)
+SRC			= placeholder.c
 
-#=======================TO MAKE SURE MAKEFILE RECOMPILES=======================#
+OBJ			= $(SRC:.c=.o)
 
-LIB_DEP = \
+INCLUDES 	= -Ilibft -I. #-I./MLX42/include
+
+HDR			= placeholder.h
+
+#MLX42_DIR	= MLX42
+#MLX42		= build/libmlx42.a
+#MLXFLAGS	= -ldl -lglfw -pthread -lm
+
+# ================================== LIBFT =================================== #
+
+LIBFT_DIR	= libft
+LIBFT		= $(LIBFT_DIR)/libft.a
+
+LIB_HDR		= \
+libft/libft.h \
+libft/get_next_line.h \
+libft/get_next_line_bonus.h \
+libft/ft_printf.h
+
+LIB_SRC		= \
 libft/ft_atoi.c \
 libft/ft_bzero.c \
 libft/ft_calloc.c \
@@ -67,30 +98,40 @@ libft/get_next_line.h \
 libft/get_next_line_bonus.h \
 libft/ft_printf.h \
 
-OBJ_DEP = $(LIB_DEP:.c=.o)
+LIB_DEP = $(LIB_SRC) $(LIB_HDR) libft/Makefile 
 
-DIR_DEP = -I. -Ilibft
-
-ALL_DEP = Makefile placeholder.h $(OBJ) $(LIB_DEP) $(OBJ_DEP) libft/Makefile \
-		  DIR_DEP
-
-#=======================TO MAKE SURE MAKEFILE RECOMPILES=======================#
+# ================================== RULES =================================== #
 
 all: $(NAME)
 
-$(NAME): $(ALL_DEP)
-	@make all -C libft
-	@$(COMPILE) $(SRC) ./libft/libft.a -o $(NAME) 
+$(NAME): $(OBJ) $(LIBFT) #$(MLX42)
+	@echo "\n==> Linking $(NAME)..."
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) #$(MLX42) $(MLXFLAGS)
+
+srcs/%.o: srcs/%.c $(HDR) $(LIB_HDR) Makefile
+	@echo " -> Compiling $<"
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(LIBFT): $(LIB_DEP)
+	@echo "\n==> Building Libft..."
+	@$(MAKE) -C $(LIBFT_DIR)
+
+#$(MLX42):
+#	@echo "\n==> Building MLX..."
+#	@cmake $(MLX42_DIR) -B build
+#	@cmake --build build -j4
 
 clean:
-	@make clean -C libft
+	@echo "\n==> Cleaning project..."
+	@$(MAKE) -s clean -C $(LIBFT_DIR)
 	@rm -f $(OBJ)
+	#@rm -rf build
 
 fclean: clean
-	@make fclean -C libft
+	@echo "\n==> Full clean..."
+	@$(MAKE) -s fclean -C $(LIBFT_DIR)
 	@rm -f $(NAME)
-	@echo 'all clean!! :)'
 
 re: fclean all
 
-.PHONY: all re clean fclean
+.PHONY: all clean fclean re
